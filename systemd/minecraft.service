@@ -1,0 +1,32 @@
+[Unit]
+Description=Minecraft Server
+After=network.target
+
+[Service]
+WorkingDirectory=/usr/local/minecraft/paper
+InaccessiblePaths=/root /mnt /sys /srv -/opt /media -/lost+found
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateUsers=true
+User=minecraft
+Group=minecraft
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+ExecStart=/bin/sh -c '/usr/local/minecraft/paper/start.sh'
+
+#ExecReload=/usr/bin/screen -p 0 -S minecraft -X eval 'stuff "reload"\\015'
+
+ExecStop=/usr/bin/screen -p 0 -S minecraft -X eval 'stuff "say The server is shutting down! Saving world..."\\015'
+ExecStop=/usr/bin/screen -p 0 -S minecraft -X eval 'stuff "save-all"\\015'
+ExecStop=/usr/bin/screen -p 0 -S minecraft -X eval 'stuff "stop"\\015'
+ExecStop=/bin/sleep 10
+
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target

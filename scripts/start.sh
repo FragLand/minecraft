@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/screen -DmS minecraft /usr/bin/java -server -Xmx2048M -Xms2048M -XX:+AlwaysPreTouch -XX:+UseG1GC -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:InitiatingHeapOccupancyPercent=50 -XX:+ExplicitGCInvokesConcurrent -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -XX:+UseStringDeduplication -Dio.netty.native.workdir=tmp -Djava.io.tmpdir=tmp -jar paper.jar nogui
